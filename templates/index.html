@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geoprocessamento - Parauapebas</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>Consulta Espacial de Rotas — Parauapebas</h1>
+    <p class="sub">Escolha os pontos cadastrados no PostGIS, visualize no mapa e salve o histórico no banco.</p>
+
+    <div class="grid">
+      <div id="map"></div>
+
+      <div class="card">
+        <label for="selectOrigem">Origem:</label>
+        <select id="selectOrigem"></select>
+
+        <label for="selectDestino">Destino:</label>
+        <select id="selectDestino"></select>
+
+        <div class="acoes">
+          <button onclick="calcularRota(true)">Calcular e Salvar</button>
+          <button class="secundario" onclick="limparMapa()">Limpar Mapa</button>
+        </div>
+
+        <div id="boxErro" class="erro"></div>
+        <div id="boxOk" class="ok"></div>
+        <div id="resumo">Selecione a origem e o destino e clique em <strong>Calcular e Salvar</strong>.</div>
+
+        <table>
+          <thead>
+            <tr><th>Modal</th><th>Vel.</th><th>Tempo</th></tr>
+          </thead>
+          <tbody id="tabelaModais"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card historico-box">
+      <h2>Histórico Salvo no PostgreSQL (<code>historico_rotas</code>)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Origem</th>
+            <th>Destino</th>
+            <th>Distância</th>
+            <th>A pé</th>
+            <th>Moto</th>
+            <th>Carro</th>
+            <th>Data/Hora</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaHistorico">
+          <tr><td colspan="8">Carregando histórico...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
